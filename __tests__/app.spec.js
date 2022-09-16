@@ -105,7 +105,7 @@ describe('shopping_checkout_application', () => {
 
     });
 
-    it('should Calculate correct price before selecting coupon', async () => {
+    it('should Calculate correct price before selecting coupons', async () => {
         await addToCart(IDMAPS.PRODUCT_ITEMS[0])
         let cartItem = getCartItem(0);
 
@@ -126,6 +126,30 @@ describe('shopping_checkout_application', () => {
         expect(cartDetails.discount).toEqual(0);
         expect(cartDetails.total).toEqual(PRODUCTS[0].price + PRODUCTS[2].price);
     })
+
+        it('should recalculate prices when item is removed from cart', async () => {
+        await addToCart(IDMAPS.PRODUCT_ITEMS[2]);
+        await pushDiscountValue(20);
+
+        let cartDetails = getCartDetails();
+        let calculatedDiscount = getDiscountValue(PRODUCTS[2], 20);
+        expect(cartDetails.discount).toEqual(calculatedDiscount);
+        expect(cartDetails.subTotal).toEqual(PRODUCTS[2].price);
+        expect(cartDetails.total).toEqual(PRODUCTS[2].price - calculatedDiscount);
+
+        await addToCart(IDMAPS.PRODUCT_ITEMS[3]);
+        cartDetails = getCartDetails();
+        calculatedDiscount += getDiscountValue(PRODUCTS[3], 20);
+        expect(cartDetails.discount).toEqual(calculatedDiscount);
+        expect(cartDetails.total).toEqual((PRODUCTS[3].price + PRODUCTS[2].price) - calculatedDiscount);
+
+        await removeFromCart(IDMAPS.PRODUCT_ITEMS[2])
+        cartDetails = getCartDetails();
+        calculatedDiscount -= getDiscountValue(PRODUCTS[2], 20);
+        expect(cartDetails.discount).toEqual(calculatedDiscount);
+        expect(cartDetails.total).toEqual((PRODUCTS[3].price) - calculatedDiscount);
+    })
+
 
     
 });
