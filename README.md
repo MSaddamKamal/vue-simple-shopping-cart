@@ -48,3 +48,39 @@ Each item in the cart, Type CartItem has the following properties:
 - quantity: The quantity of the item in the cart [NUMBER]
 - price: The total amount of the item in cart. (quantity x product.price) [NUMBER]
 
+## Testing 
+
+The following data-testid/class attributes are required in the component for the tests to pass:
+
+- Each product item in the Listing component  have the class product-item.
+- Each Add to Cart button  have the data-testid attribute 'btn-item-add'.
+- Each Remove from Cart button  have the data-testid attribute 'btn-item-add'.
+- The table rows `<tr>` in the Cart Component corresponding to items in the cart  have the data-testid attribute of cart-item-0, cart-item-1, and so on.
+- The table data `<td>` containing the Name of the Item in the cart  have the data-testid attribute 'cart-item-name'.
+- The table data `<td>` containing the Quantity of the Item in the cart  have the data-testid attribute 'cart-item-quantity'.
+- The table data `<td>` containing the Price of the Item in the cart  have the data-testid attribute 'cart-item-price'.
+- The Coupon Select input  have a data-testid attribute 'cart-coupon'
+- The Cart Subtotal value container  have a data-testid 'cart-subtotal'. 
+- The Cart Discount value container  have a data-testid 'cart-discount'. 
+- The Cart Total Price value container  have a data-testid 'cart-total'. 
+
+_Note: Please note that the component has the above data-testid attributes for test cases and certain classes and ids for rendering purposes. It is advised not to change them._
+
+## Project Specifications
+
+**Read Only Files**
+- `__tests__/*`
+
+**Commands**
+- run: 
+```bash
+bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm start
+```
+- install: 
+```bash
+bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm install
+```
+- test: 
+```bash
+bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm test
+```
